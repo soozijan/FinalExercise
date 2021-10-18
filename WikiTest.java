@@ -23,26 +23,24 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 public class WikiTest {
-    private WebDriver driver;
-    private Map<String, Object> vars;
-    JavascriptExecutor js;
-    @Before
-    public void setUp() {
-        //Config the webdriver.chrome.driver which is a permanent key with the path value
-        System.setProperty("webdriver.chrome.driver", "C:\\chrome_driver\\chromedriver.exe");
-        //The web driver is an interface. The ChromeDriver inherits the WebDriver. ChromeDriver will open the chrome browser for us.
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();//Make the browser open on the whole screen
-    }
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
-    @Test
-    public void wiki() {
-        driver.get("https://en.wikipedia.org/wiki/Main_Page");
-        driver.manage().window().setSize(new Dimension(1072, 824));
-        driver.findElement(By.linkText("Contents")).click();
-        driver.findElement(By.linkText("Overviews")).click();
-    }
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void wiki() {
+    driver.get("https://en.wikipedia.org/wiki/Main_Page");
+    driver.manage().window().setSize(new Dimension(1072, 824));
+    driver.findElement(By.linkText("Contents")).click();
+    driver.findElement(By.linkText("Overviews")).click();
+  }
 }
